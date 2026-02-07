@@ -15,7 +15,7 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final double kDriveScale = 0.7;
-    public static final double kRotationScale = 0.8;
+    public static final double kRotationScale = 0.5;
   }
 
   public static final class DriveConstants {

@@ -20,8 +20,8 @@ public class IntakeShootSubsystem extends SubsystemBase {
 
   public IntakeShootSubsystem() {
     //TODO fix
-    m_feederRoller = new SparkMax(0, MotorType.kBrushed);
-    m_intakeLauncherRoller = new SparkMax(0, MotorType.kBrushed);
+    m_feederRoller = new SparkMax(4, MotorType.kBrushed);
+    m_intakeLauncherRoller = new SparkMax(17, MotorType.kBrushed);
 
     configureMotors();
   }

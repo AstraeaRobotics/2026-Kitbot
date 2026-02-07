@@ -13,6 +13,7 @@ import frc.robot.commands.intake.PoopFuel;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeShootSubsystem;
 import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,16 +30,9 @@ public class RobotContainer {
   private final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
   private final IntakeShootSubsystem m_IntakeShootSubsystem = new IntakeShootSubsystem();
 
-  private final PS4Controller m_Controller = new PS4Controller(0);
+  // private final PS4Controller m_Controller = new PS4Controller(0);
 
-  private final JoystickButton kCircle = new JoystickButton(m_Controller, PS4Controller.Button.kCircle.value);
-  private final JoystickButton kSquare = new JoystickButton(m_Controller, PS4Controller.Button.kSquare.value);
-  private final JoystickButton kCross = new JoystickButton(m_Controller, PS4Controller.Button.kCross.value);
-  private final JoystickButton kTriangle = new JoystickButton(m_Controller, PS4Controller.Button.kTriangle.value);
-  private final JoystickButton kR1 = new JoystickButton(m_Controller, PS4Controller.Button.kR1.value);
-  private final JoystickButton kL1 = new JoystickButton(m_Controller, PS4Controller.Button.kL1.value);
-  private final JoystickButton kR2 = new JoystickButton(m_Controller, PS4Controller.Button.kR2.value);
-  private final JoystickButton kL2 = new JoystickButton(m_Controller, PS4Controller.Button.kL2.value);
+  private final XboxController m_driverController = new XboxController(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -56,17 +50,19 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    kL1.whileTrue(new IntakeFuel(m_IntakeShootSubsystem, IntakeShootConstants.kIntakingIntakeVoltage, IntakeShootConstants.kIntakingFeederVoltage));
+     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value)
+      .whileTrue(new IntakeFuel(m_IntakeShootSubsystem, IntakeShootConstants.kIntakingIntakeVoltage, IntakeShootConstants.kIntakingFeederVoltage));
 
-    kR1.whileTrue(new LaunchSequence(m_IntakeShootSubsystem));
+     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
+      .whileTrue(new LaunchSequence(m_IntakeShootSubsystem)); 
 
-    kCross.whileTrue(new PoopFuel(m_IntakeShootSubsystem, IntakeShootConstants.kIntakingIntakeVoltage, IntakeShootConstants.kIntakingFeederVoltage));
+     new JoystickButton(m_driverController, XboxController.Button.kA.value)
+      .whileTrue(new PoopFuel(m_IntakeShootSubsystem, IntakeShootConstants.kIntakingIntakeVoltage, IntakeShootConstants.kIntakingFeederVoltage));
 
     m_DriveSubsystem.setDefaultCommand(
-      new Drive (
-        m_DriveSubsystem,
-        () -> -m_Controller.getLeftY() * OperatorConstants.kDriveScale,
-        () -> -m_Controller.getRightX() * OperatorConstants.kRotationScale
+      new Drive(m_DriveSubsystem, 
+        () -> m_driverController.getLeftY() * OperatorConstants.kDriveScale,
+        () -> m_driverController.getRightX() * OperatorConstants.kRotationScale
       )
     );
 

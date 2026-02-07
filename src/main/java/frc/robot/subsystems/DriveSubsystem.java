@@ -24,11 +24,10 @@ public class DriveSubsystem extends SubsystemBase {
   private final DifferentialDrive m_drive;
 
   public DriveSubsystem() {
-    //TODO fix
-    m_leftLeader = new SparkMax(0, MotorType.kBrushed);
-    m_leftFollower = new SparkMax(0, MotorType.kBrushed);
-    m_rightLeader = new SparkMax(0, MotorType.kBrushed);
-    m_rightFollower = new SparkMax(0, MotorType.kBrushed);
+    m_leftLeader = new SparkMax(5, MotorType.kBrushed);
+    m_leftFollower = new SparkMax(16, MotorType.kBrushed);
+    m_rightLeader = new SparkMax(6, MotorType.kBrushed);
+    m_rightFollower = new SparkMax(18, MotorType.kBrushed);
 
     m_drive = new DifferentialDrive(m_leftLeader, m_rightLeader);
 
@@ -38,7 +37,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void configureMotors() {
     SparkMaxConfig m_config = new SparkMaxConfig();
     m_config.voltageCompensation(12);
-    m_config.smartCurrentLimit(0); //TODO fix
+    m_config.smartCurrentLimit(60); 
 
     m_config.follow(m_leftLeader);
     m_leftFollower.configure(m_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
