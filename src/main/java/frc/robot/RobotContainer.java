@@ -12,6 +12,7 @@ import frc.robot.commands.intake.IntakeFuel;
 import frc.robot.commands.intake.PoopFuel;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeShootSubsystem;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -30,9 +31,15 @@ public class RobotContainer {
   private final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
   private final IntakeShootSubsystem m_IntakeShootSubsystem = new IntakeShootSubsystem();
 
+
   // private final PS4Controller m_Controller = new PS4Controller(0);
 
   private final XboxController m_driverController = new XboxController(0);
+  JoystickButton leftBumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+  JoystickButton rightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+  JoystickButton aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+  JoystickButton xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -50,14 +57,12 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value)
-      .whileTrue(new IntakeFuel(m_IntakeShootSubsystem, IntakeShootConstants.kIntakingIntakeVoltage, IntakeShootConstants.kIntakingFeederVoltage));
+      leftBumper.whileTrue(new IntakeFuel(m_IntakeShootSubsystem, IntakeShootConstants.kIntakingIntakeVoltage, IntakeShootConstants.kIntakingFeederVoltage));
 
-     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
-      .whileTrue(new LaunchSequence(m_IntakeShootSubsystem)); 
+      rightBumper.whileTrue(new LaunchSequence(m_IntakeShootSubsystem)); 
 
-     new JoystickButton(m_driverController, XboxController.Button.kA.value)
-      .whileTrue(new PoopFuel(m_IntakeShootSubsystem, IntakeShootConstants.kIntakingIntakeVoltage, IntakeShootConstants.kIntakingFeederVoltage));
+      aButton.whileTrue(new PoopFuel(m_IntakeShootSubsystem, IntakeShootConstants.kIntakingIntakeVoltage, IntakeShootConstants.kIntakingFeederVoltage));
+      xButton.whileTrue(m_IntakeShootSubsystem.spinMotor(-5));
 
     m_DriveSubsystem.setDefaultCommand(
       new Drive(m_DriveSubsystem, 

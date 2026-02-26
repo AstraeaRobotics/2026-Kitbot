@@ -19,15 +19,15 @@ public final class Constants {
   }
 
   public static final class DriveConstants {
-    public static final int kLeftLeader_CANID = 1;
-    public static final int kLeftFollower_CANID = 2;
-    public static final int kRightLeader_CANID = 3;
-    public static final int kRightFollower_CANID = 4;
+    public static final int kLeftLeader_CANID = 5;
+    public static final int kLeftFollower_CANID = 16;
+    public static final int kRightLeader_CANID = 18;
+    public static final int kRightFollower_CANID = 6;
   }
 
   public static final class IntakeShootConstants {
-    public static final int kFeeder_CANID = 0;
-    public static final int kIntakeLauncher_CANID = 0;
+    public static final int kFeeder_CANID = 4;
+    public static final int kIntakeLauncher_CANID = 17;
 
     public static final int kFeederCurrentLimit = 60;
     public static final int kIntakeLaunchCurrentLimit = 60;

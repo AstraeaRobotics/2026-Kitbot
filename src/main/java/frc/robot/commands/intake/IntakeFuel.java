@@ -16,6 +16,9 @@ public class IntakeFuel extends Command {
   double m_feederVoltage;
 
   public IntakeFuel(IntakeShootSubsystem m_intakeShootSubsystem, double m_intakeVoltage, double m_feederVoltage) {
+
+    //System.out.println("Intake fuel method run!!");
+
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_intakeShootSubsystem = m_intakeShootSubsystem;
     this.m_intakeVoltage = m_intakeVoltage;
